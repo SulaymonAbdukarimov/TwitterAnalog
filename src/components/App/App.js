@@ -23,16 +23,11 @@ export default class App extends React.Component {
       term: "",
       filter: "all",
     };
-    this.deleteItem = this.deleteItem.bind(this);
-    this.addItem = this.addItem.bind(this);
+
     this.maxId = 4;
-    this.onToggleImportant = this.onToggleImportant.bind(this);
-    this.onToggleLiked = this.onToggleLiked.bind(this);
-    this.onUpdateSearch = this.onUpdateSearch.bind(this);
-    this.onFilterSelect = this.onFilterSelect.bind(this);
   }
 
-  deleteItem(id) {
+  deleteItem = (id) => {
     this.setState(({ data }) => {
       const index = data.findIndex((elem) => elem.id === id);
       const before = data.slice(0, index);
@@ -42,23 +37,25 @@ export default class App extends React.Component {
         data: newArr,
       };
     });
-  }
+  };
 
-  addItem(body) {
+  addItem = (body) => {
     const newItem = {
       label: body,
       important: false,
+      like: false,
       id: this.maxId++,
     };
+
     this.setState(({ data }) => {
       const newArr = [...data, newItem];
       return {
         data: newArr,
       };
     });
-  }
+  };
 
-  onToggleImportant(id) {
+  onToggleImportant = (id) => {
     this.setState(({ data }) => {
       const index = data.findIndex((elem) => elem.id === id);
       const oldItem = data[index];
@@ -72,9 +69,9 @@ export default class App extends React.Component {
         data: newArr,
       };
     });
-  }
+  };
 
-  onToggleLiked(id) {
+  onToggleLiked = (id) => {
     this.setState(({ data }) => {
       const index = data.findIndex((elem) => elem.id === id);
       const oldItem = data[index];
@@ -88,29 +85,29 @@ export default class App extends React.Component {
         data: newArr,
       };
     });
-  }
-  searchPost(items, term) {
+  };
+  searchPost = (items, term) => {
     if (term.length === 0) {
       return items;
     }
     return items.filter((item) => {
       return item.label.indexOf(term) > -1;
     });
-  }
-  onUpdateSearch(term) {
+  };
+  onUpdateSearch = (term) => {
     this.setState({ term });
-  }
+  };
 
-  filterPost(items, filter) {
+  filterPost = (items, filter) => {
     if (filter === "like") {
       return items.filter((item) => item.like);
     } else {
       return items;
     }
-  }
-  onFilterSelect(filter) {
+  };
+  onFilterSelect = (filter) => {
     this.setState({ filter });
-  }
+  };
   render() {
     const { data, term, filter } = this.state;
     const liked = data.filter((item) => item.like).length;

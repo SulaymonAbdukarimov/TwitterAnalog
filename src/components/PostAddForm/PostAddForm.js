@@ -12,6 +12,7 @@ export default class PostAddForm extends React.Component {
   onValueChange(e) {
     this.setState({ text: e.target.value });
   }
+  
   onSubmit(e) {
     e.preventDefault();
     if (this.state.text) {
